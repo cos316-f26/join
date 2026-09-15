@@ -1,0 +1,15 @@
+# .github/ISSUE_TEMPLATE/join.yml
+name: Join the course organization
+description: Submit this form to receive an invitation to the cos316-f26 organization
+title: "join"
+body:
+  - type: markdown
+    attributes:
+      value: Enter your Princeton NetID and submit. You'll receive an invitation by email; you can also accept it at https://github.com/orgs/cos316-f26/invitation.
+  - type: input
+    id: netid
+    attributes:
+      label: Princeton NetID
+      placeholder: e.g. ab1234
+    validations:
+      required: true

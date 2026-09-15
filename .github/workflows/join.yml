@@ -1,0 +1,24 @@
+name: Invite to course org
+on:
+  issues:
+    types: [opened]
+permissions:
+  issues: write
+jobs:
+  invite:
+    runs-on: ubuntu-latest
+    env:
+      ORG: cos316-f26
+      TEAM: students
+      STUDENT: ${{ github.event.issue.user.login }}
+    steps:
+      - name: Invite to org and team
+        env:
+          GH_TOKEN: ${{ secrets.ORG_ADMIN_PAT }}
+        run: gh api --method PUT "/orgs/$ORG/teams/$TEAM/memberships/$STUDENT"
+      - name: Close issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh issue close ${{ github.event.issue.number }} -R ${{ github.repository }}
+          --comment "Invitation sent, @$STUDENT. Accept it at https://github.com/orgs/$ORG/invitation, then create your assignment repo from the template as described in the assignment instructions."
